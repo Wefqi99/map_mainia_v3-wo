@@ -1,0 +1,14 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1 { color:crimson;
+    text-align: center;
+}
+
+#myMapID {
+    height: 100%;
+    width: 100%;
+}
