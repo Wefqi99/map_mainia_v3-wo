@@ -20,7 +20,8 @@ var favoritePlaces = {
 	]
 }
 
-var hintSetOne = '{"hint_one":"Hair capital of the world", "hint_two":"Ketchup on hotdogs arent allowed", "hint_3":"The capital of this country is named Tirana", "hint_four":"The capital of this country is named Tirana", "hint_five","Pizza capital of the world"}'
+var hints = '{"hint_1" : "Hair capital of the world", "hint_2" : "Ketchup on hotdogs arent allowed", "hint_3" : "The capital of this country is named Tirana", "hint_4" : "Pizza capital of the world", "hint_5" : "Man-made city", "hint_6" : "Kind of a state but not really", "hint_seven" : "The only place colder than chicago", "hint_8" : "Holds one of the 7 wonders of the world", "hint_9": "Close to where all Aberhamic faiths originate from", "hint_10" : "One of mexicos most popular vacation spots"}'
+
 
 
 app.get('/send', function(req, res) {
@@ -29,8 +30,8 @@ app.get('/send', function(req, res) {
 })
 
 app.get('/hintsOne', function(req, res) {
-	console.log(hintOne)
-	res.json(hintOne)
+	console.log(hints)
+	res.json(hints)
 })
 
 app.listen(port, function() {

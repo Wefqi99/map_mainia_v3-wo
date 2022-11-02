@@ -17,7 +17,8 @@ async function start()  {
     try {
         const responseTwo = await fetch('/hintsOne')
         const info = await responseTwo.json()
-        createHintOneList(info)
+        listOfFirstHints = createHintOneList(info)
+        console.log(listOfFirstHints)
     } catch {
         console.log("There was an issue trying to get hint set one.")
     }
@@ -39,8 +40,6 @@ function initMap() {
     gMap = new google.maps.Map(document.getElementById('myMapID'), {
         center: {lat: 41.6303, lng: 87.8539}, zoom: 3});
 
-
-
     google.maps.event.addListener(gMap, 'idle', function() {
         updateGame()
     });
@@ -54,8 +53,7 @@ function createHintOneList(info) {
         lstOne.push(obj[i]);
     }
 
-    console.log(lstOne)
-
+    return lstOne
 }
 
 function updateGame() {
