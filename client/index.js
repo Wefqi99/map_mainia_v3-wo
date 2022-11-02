@@ -22,6 +22,11 @@ async function start()  {
     } catch {
         console.log("There was an issue trying to get hint set one.")
     }
+
+    var dropBox =  document.getElementById("drop_box");
+    for (var i=0; i< listOfFirstHints.length(); i++) {
+        dropBox.options.add(new Option(listOfFirstHints[i]));
+    }
 }
 
 function mapPoints(data) {
