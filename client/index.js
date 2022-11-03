@@ -13,20 +13,6 @@ async function start()  {
     } catch {
         console.log("There was an issue fetching the data")
     }
-
-    try {
-        const responseTwo = await fetch('/hintsOne')
-        const info = await responseTwo.json()
-        listOfFirstHints = createHintOneList(info)
-        console.log(listOfFirstHints)
-    } catch {
-        console.log("There was an issue trying to get hint set one.")
-    }
-
-    var dropBox =  document.getElementById("drop_box");
-    for (var i=0; i< listOfFirstHints.length(); i++) {
-        dropBox.options.add(new Option(listOfFirstHints[i]));
-    }
 }
 
 function mapPoints(data) {
@@ -50,16 +36,6 @@ function initMap() {
     });
 }
 
-function createHintOneList(info) {
-    var lstOne = [];
-    var obj = JSON.parse(info);
-
-    for (var i in obj) {
-        lstOne.push(obj[i]);
-    }
-
-    return lstOne
-}
 
 function updateGame() {
     console.log('function UpdateGame()');
