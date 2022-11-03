@@ -11,16 +11,38 @@
     <body onload="initApp()">
             <h1>Map Mainia v3</h1>
 
-            <div id="firstDropBox"class="dropBoxOne">
+            <button id="myBtn">Open Insturctions</button>
+
+            <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <p>Game Instructions</p>
+                </div>
+              
+            </div>
+              
+
+            <div id="firstDropBox" class="dropBoxOne">
                 <select id="HintSetOne">
                     <option value="">Hint Set #1</option>
                 </select>
             </div>
 
+            <div class="score">
+                <h2 id="scoreNumber">0</h2>
+            </div>
+
+
+
             <div id="myMapID"></div>
 
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAilwS3w4USrpWbQxhmyl_SVFW9mFo2_Fw&callback=initMap"
             async defer>
+        </script>
+
+        <script>
+
         </script>
     </body>
 </html>
