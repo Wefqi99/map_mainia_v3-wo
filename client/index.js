@@ -3,6 +3,27 @@ var gMap
 function initApp() {
     console.log("Map Mainia Starting...")
     start()
+
+    let hintOne = [
+        "Hair capital of the world",
+        "Ketchup on hotdogs arent allowed",
+        "The capital of this country is named Tirana",
+        "Pizza capital of the world",
+        "Man-made city",
+        "Kind of a state but not really",
+        "The only place colder than chicago",
+        "Holds one of the 7 wonders of the world",
+        "Close to where all Aberhamic faiths originate from",
+        "Famous place to vacation during winter"
+    ];
+
+    hintOne.forEach(function(item){
+        let o = document.createElement("option");
+        o.text = item;
+        o.value = item;
+        HintSetOne.appendChild(o);
+    })
+
 }
 
 async function start()  {
@@ -14,6 +35,7 @@ async function start()  {
         console.log("There was an issue fetching the data")
     }
 }
+
 
 function mapPoints(data) {
     var jsonArray = Object.values(data.places)
