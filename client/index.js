@@ -1,3 +1,5 @@
+const { response, json } = require("express");
+
 var gMap
 
 
@@ -66,6 +68,7 @@ function initApp() {
         }
     }
 
+
 }
 
 async function start()  {
@@ -98,11 +101,13 @@ async function start()  {
 
 function initMap() {
 
+
     gMap = new google.maps.Map(document.getElementById('myMapID'), {
         center: {lat: 41.6303, lng: 87.8539}, zoom: 3});
 
-    google.maps.event.addListener(gMap, 'idle', function(data) {
+    google.maps.event.addListener(gMap, 'idle', function() {
         updateGame()
+        findLocations()
     });
 
 } 
@@ -118,23 +123,37 @@ function updateGame() {
         alert("you found pali")
     }
 
-
-
     console.log("inBounds:"+inBounds+" zoomLevel:"+zoomLevel);
 
 }
 
-function findLocations (jsonInfo) {
-    var checkZoom = gMap.getZoom()
+function findLocations(score) {
+    console.log("starting findLocations")
+    fetch("/send").then(response => response.json()).then(data => {
+        var zoomLevel = gMap.getZoom()
 
-    var locationArray = Object.values(jsonInfo.places)
+        var score = 0;
+        
 
-    var locationOne = false;
-    if (gMap.getBounds().contains(locationArray[1].lattitude, locationArray[1].longitude) &&  checkZoom == 8 ) { //added alert test with palestine
-        console.log("You found chicago!")
-        locationOne = true;
-    }
+        document.querySelector("#zoomNumber").innerHTML = "Zoom Level: " + zoomLevel
+
+        document.querySelector("#scoreNumber").innerHTML = "Score: " + score
+
+        var jsonArray = Object.values(data.places)
+        
+        if (gMap.getBounds().contains({lat: jsonArray[1].lattitude, lng : jsonArray[1].longitude}) && zoomLevel == 8) {
+            console.log("you found chicago")
+            alert("You found Chicago: + 10pts")
+            score = score + 10;
+        }
+
+
+
+    })
+
 }
+
+
 
 
 
