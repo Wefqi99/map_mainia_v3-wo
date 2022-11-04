@@ -18,6 +18,19 @@ function initApp() {
         "Famous place to vacation during winter"
     ];
 
+    let hintTwo = [
+        "Named after a flightless brid",
+        "Not home of the Willis Tower",
+        "Part of the Balkan Peninsula",
+        "The home of cheese and wine",
+        "Famous UFC fight location",
+        "Summer weather no matter the time of year",
+        "Has a twin",
+        "One of the worlds leaders in Oil Production",
+        "Bordered with Jordan",
+        "Most hotels in one city"
+    ];
+
     hintOne.forEach(function(item){
         let o = document.createElement("option");
         o.text = item;
@@ -25,30 +38,32 @@ function initApp() {
         HintSetOne.appendChild(o);
     })
 
+    hintTwo.forEach(function(hint) {
+        let h = document.createElement("option");
+        h.text = hint;
+        h.value = hint;
+        HintSetTwo.appendChild(h)
+    })
 
     var modal = document.getElementById("myModal");
 
-
     var btn = document.getElementById("myBtn");
-
 
     var span = document.getElementsByClassName("close")[0];
 
-
     btn.onclick = function() {
-    modal.style.display = "block";
+        modal.style.display = "block";
     }
 
-
     span.onclick = function() {
-    modal.style.display = "none";
+        modal.style.display = "none";
     }
 
 
     window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
-    }
+        }
     }
 
 }
@@ -61,20 +76,22 @@ async function start()  {
     } catch {
         console.log("There was an issue fetching the data")
     }
+
 }
 
 
 
-function mapPoints(data) {
-    var jsonArray = Object.values(data.places)
-    for (let i = 0; i < jsonArray.length; i++) {
-        var name = jsonArray[i].name
-        var lattitude = jsonArray[i].lattitude
-        var longitude = jsonArray[i].longitude
-        var marker = new google.maps.Marker({position: {lat: lattitude, lng: longitude}, map:gMap, title: name});
-        marker.setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')
-    }
-}
+//function mapPoints(data) {
+    //var jsonArray = Object.values(data.places)
+    //for (let i = 0; i < jsonArray.length; i++) {
+        //var name = jsonArray[i].name
+       // var lattitude = jsonArray[i].lattitude
+        //var longitude = jsonArray[i].longitude
+       // var marker = new google.maps.Marker({position: {lat: lattitude, lng: longitude}, map:gMap, title: name});
+       // marker.setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')
+    //}
+//}
+
 
 function initMap() {
 
@@ -84,7 +101,9 @@ function initMap() {
     google.maps.event.addListener(gMap, 'idle', function() {
         updateGame()
     });
-}
+
+
+} 
 
 
 function updateGame() {
@@ -97,4 +116,20 @@ function updateGame() {
     }
 
     console.log("inBounds:"+inBounds+" zoomLevel:"+zoomLevel);
+
 }
+
+function findLocations (jsonInfo) {
+    var checkZoom = gMap.getZoom()
+
+    var locationArray = Object.values(jsonInfo.places)
+
+    var locationOne = false;
+    if (gMap.getBounds().contains(locationArray[1].lattitude, locationArray[1].longitude) &&  checkZoom == 8 ) {
+        console.log("You found chicago!")
+        locationOne = true;
+    }
+}
+
+
+
