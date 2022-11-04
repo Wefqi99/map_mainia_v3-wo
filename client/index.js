@@ -103,7 +103,6 @@ function initMap() {
 
     google.maps.event.addListener(gMap, 'idle', function(data) {
         updateGame()
-        findLocations(data)
     });
 
 } 
@@ -114,9 +113,12 @@ function updateGame() {
     var zoomLevel = gMap.getZoom()
     var inBounds = false;
 
-    if (gMap.getBounds().contains({lat:31.9794,lng:35.2619})) {
+    if (gMap.getBounds().contains({lat:31.9794,lng:35.2619}) && zoomLevel == 8) {
         inBounds = true;
+        alert("you found pali")
     }
+
+
 
     console.log("inBounds:"+inBounds+" zoomLevel:"+zoomLevel);
 
@@ -125,11 +127,10 @@ function updateGame() {
 function findLocations (jsonInfo) {
     var checkZoom = gMap.getZoom()
 
-
     var locationArray = Object.values(jsonInfo.places)
 
     var locationOne = false;
-    if (gMap.getBounds().contains(locationArray[1].lattitude, locationArray[1].longitude) &&  checkZoom == 8 ) {
+    if (gMap.getBounds().contains(locationArray[1].lattitude, locationArray[1].longitude) &&  checkZoom == 8 ) { //added alert test with palestine
         console.log("You found chicago!")
         locationOne = true;
     }
