@@ -101,10 +101,10 @@ function initMap() {
     gMap = new google.maps.Map(document.getElementById('myMapID'), {
         center: {lat: 41.6303, lng: 87.8539}, zoom: 3});
 
-    google.maps.event.addListener(gMap, 'idle', function() {
+    google.maps.event.addListener(gMap, 'idle', function(data) {
         updateGame()
+        findLocations(data)
     });
-
 
 } 
 
@@ -124,6 +124,7 @@ function updateGame() {
 
 function findLocations (jsonInfo) {
     var checkZoom = gMap.getZoom()
+
 
     var locationArray = Object.values(jsonInfo.places)
 
