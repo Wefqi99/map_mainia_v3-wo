@@ -72,7 +72,10 @@ async function start()  {
     try {
         const response = await fetch('/send')
         const data = await response.json()
-        mapPoints(data)
+        //mapPoints(data)
+        //var jsonArray = Object.values(data.places)  //Experiemtn with pulling data (reference)
+        //console.log(jsonArray[1].lattitude)
+        //console.log(data.places[1].lattitude)
     } catch {
         console.log("There was an issue fetching the data")
     }
