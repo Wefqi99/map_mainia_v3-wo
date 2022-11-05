@@ -1,11 +1,22 @@
+const e = require("express");
 const { response, json } = require("express");
-
 var gMap
+var score = 0
+
+
+
+
+
 
 
 function initApp() {
     console.log("Map Mainia Starting...")
     start()
+
+    document.querySelector("#scoreNumber").innerHTML = "Score: " + score
+
+
+    
 
     let hintOne = [
         "Hair capital of the world",
@@ -68,39 +79,43 @@ function initApp() {
         }
     }
 
-
 }
 
 async function start()  {
     try {
         const response = await fetch('/send')
         const data = await response.json()
-        //mapPoints(data)
-        //var jsonArray = Object.values(data.places)  //Experiemtn with pulling data (reference)
-        //console.log(jsonArray[1].lattitude)
-        //console.log(data.places[1].lattitude)
+
     } catch {
         console.log("There was an issue fetching the data")
     }
 
 }
 
+async function getData() {
+    const response = await fetch("/send")
+    return response.json()
+}
 
 
-//function mapPoints(data) {
-    //var jsonArray = Object.values(data.places)
-    //for (let i = 0; i < jsonArray.length; i++) {
-        //var name = jsonArray[i].name
-       // var lattitude = jsonArray[i].lattitude
-        //var longitude = jsonArray[i].longitude
-       // var marker = new google.maps.Marker({position: {lat: lattitude, lng: longitude}, map:gMap, title: name});
-       // marker.setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')
-    //}
-//}
+
+function mapPoints(data) {
+    var jsonArray = Object.values(data.places)
+    for (let i = 0; i < jsonArray.length; i++) {
+        var name = jsonArray[i].name
+        var lattitude = jsonArray[i].lattitude
+        var longitude = jsonArray[i].longitude
+        var marker = new google.maps.Marker({position: {lat: lattitude, lng: longitude}, map:gMap, title: name});
+        marker.setIcon('https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png')
+    }
+}
+
 
 
 function initMap() {
+    
 
+    
 
     gMap = new google.maps.Map(document.getElementById('myMapID'), {
         center: {lat: 41.6303, lng: 87.8539}, zoom: 3});
@@ -109,6 +124,9 @@ function initMap() {
         updateGame()
         findLocations()
     });
+
+    const info = getData()
+    console.log({info})
 
 } 
 
@@ -127,31 +145,78 @@ function updateGame() {
 
 }
 
-function findLocations(score) {
+function findLocations() {
     console.log("starting findLocations")
     fetch("/send").then(response => response.json()).then(data => {
         var zoomLevel = gMap.getZoom()
-
-        var score = 0;
         
 
         document.querySelector("#zoomNumber").innerHTML = "Zoom Level: " + zoomLevel
 
-        document.querySelector("#scoreNumber").innerHTML = "Score: " + score
+        //document.querySelector("#scoreNumber").innerHTML = "Score: " + score
 
         var jsonArray = Object.values(data.places)
+
+        if (gMap.getBounds().contains({lat: jsonArray[0].lattitude, lng : jsonArray[0].longitude}) && zoomLevel == 8) {
+            console.log("you found Istanbul")
+            alert("You found Istanbul: + 10pts")
+        }
         
         if (gMap.getBounds().contains({lat: jsonArray[1].lattitude, lng : jsonArray[1].longitude}) && zoomLevel == 8) {
             console.log("you found chicago")
             alert("You found Chicago: + 10pts")
-            score = score + 10;
+            console.log(hintOne);
         }
+
+        if (gMap.getBounds().contains({lat: jsonArray[2].lattitude, lng : jsonArray[2].longitude}) && zoomLevel == 8) {
+            console.log("you found Abainia")
+            alert("You found Albaina: + 10pts")
+        }
+
+        if (gMap.getBounds().contains({lat: jsonArray[3].lattitude, lng : jsonArray[3].longitude}) && zoomLevel == 8) {
+            console.log("you found Italy")
+            alert("You found Italy: + 10pts")
+        }
+
+
+        if (gMap.getBounds().contains({lat: jsonArray[4].lattitude, lng : jsonArray[4].longitude}) && zoomLevel == 8) {
+            console.log("you found Dubai")
+            alert("You found Dubai: + 10pts")
+        }
+
+        if (gMap.getBounds().contains({lat: jsonArray[5].lattitude, lng : jsonArray[5].longitude}) && zoomLevel == 8) {
+            console.log("you found Puerto Rico")
+            alert("You found Puerto Rico: + 10pts")
+        }
+
+        if (gMap.getBounds().contains({lat: jsonArray[6].lattitude, lng : jsonArray[6].longitude}) && zoomLevel == 8) {
+            console.log("you found Antartica")
+            alert("You found Antartica: + 10pts")
+        }
+
+        if (gMap.getBounds().contains({lat: jsonArray[7].lattitude, lng : jsonArray[7].longitude}) && zoomLevel == 8) {
+            console.log("you found Brazil")
+            alert("You found Brazil: + 10pts")
+        }
+
+        if (gMap.getBounds().contains({lat: jsonArray[8].lattitude, lng : jsonArray[8].longitude}) && zoomLevel == 8) {
+            console.log("you found Silwad")
+            alert("You found Silwad: + 10pts")
+        }
+
+        if (gMap.getBounds().contains({lat: jsonArray[9].lattitude, lng : jsonArray[9].longitude}) && zoomLevel == 8) {
+            console.log("you found Cancun")
+            alert("You found Cancun: + 10pts")
+        }
+
 
 
 
     })
 
 }
+
+
 
 
 
