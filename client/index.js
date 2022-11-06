@@ -113,8 +113,9 @@ function initMap() {
             fetch("/send").then(response => response.json()).then(data => {
                 mapPoints(data)
             })
-            score = -100
+            score = 100
             document.querySelector("#scoreNumber").innerHTML = "Score: " + score
+            alert("Congrats! You have found all 10 loactions. Please refresh the page to try again.")
             
             
         } else {
