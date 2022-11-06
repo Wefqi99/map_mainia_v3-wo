@@ -8,11 +8,6 @@ function initApp() {
     console.log("Map Mainia Starting...")
     start()
 
-    
-
-
-    
-
     let hintOne = [
         "Hair capital of the world",
         "Ketchup on hotdogs arent allowed",
@@ -74,9 +69,6 @@ function initApp() {
         }
     }
 
-    
-
-
 
 }
 
@@ -116,10 +108,19 @@ function initMap() {
     var btn = document.getElementById("myBtnTwo");
 
     btn.addEventListener("click", function () {
-        console.log("button was clicked")
-        fetch("/send").then(response => response.json()).then(data => {
-            mapPoints(data)
-        })
+        if (confirm('Are you sure you want to save this thing into the database?')) {
+            console.log("button was clicked")
+            fetch("/send").then(response => response.json()).then(data => {
+                mapPoints(data)
+            })
+            score = -100
+            document.querySelector("#scoreNumber").innerHTML = "Score: " + score
+            
+            
+        } else {
+            alert("Cheats Canceled")
+        }
+
     })
 
     
@@ -132,7 +133,7 @@ function initMap() {
         center: {lat: 41.6303, lng: 87.8539}, zoom: 3});
 
     google.maps.event.addListener(gMap, 'idle', function() {
-        updateGame()
+        //updateGame()
         findLocations()
         var variableZoom = aqurieZoom() 
 
